@@ -1,0 +1,58 @@
+Machine used:
+Intel(R) Core(TM) i7-3770 CPU @ 3.40GHz (8 Threads), 
+32 RAM, 
+Crucial M4-CT512M4SSD2
+
+VERSION="16.04.2 LTS (Xenial Xerus)"
+
+5.6.33-0ubuntu0.14.04.1
+
+----- MyISAM ----
+Run with large key buffer:
+mysql> SET GLOBAL key_buffer_size = 16*1024*1024*1024;
+
+$ ./sha-create.py
+0...100000 [...]35900000...
+2273.43 seconds, 15835.10 inserts/s
+Created index in 131.92 seconds
+
+mysql> select table_name
+            , engine
+            , row_format
+            , table_rows
+            , data_length/1024/1024 as data_mb
+            , index_length/1024/1024 as index_mb
+         from information_schema.tables
+where table_name ='sha';
++------------+--------+------------+------------+---------------+---------------+
+| table_name | engine | row_format | table_rows | data_mb       | index_mb      |
++------------+--------+------------+------------+---------------+---------------+
+| sha        | MyISAM | Dynamic    |   36000000 | 1785.27832031 | 1894.82910156 |
++------------+--------+------------+------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+$ ./sha-find.py
+0...100...200...300...400...500...600...700...800...900...
+success: 496/1000
+average/mean: 0.19ms
+standard dev: 0.04ms
+median:       0.19ms
+
+fail: 504/1000
+average/mean: 0.18ms
+standard dev: 0.05ms
+median:       0.17ms
+
+
+
+
+----- InnoDB ----
+Run with large innodb buffer pool:
+
+InnoDB: Sample run with
+innodb
+innodb_file_per_table = 1
+innodb_buffer_pool_size = 16384m
+innodb_log_file_size = 512m
+
+$ ./sha-create.py

@@ -10,21 +10,6 @@ Queries will be made for random numbers between 0 and RANGEMAX*2,
 the idea being that around half of the queries should result in hashes
 that are not present, and half of them are.
 
-=====
-Sample run results, MyISAM (key_buffer_size = 16*1024*1024*1024)
-
-$ ./sha-find.py
-0...100...200...300...400...500...600...700...800...900...
-success: 496/1000
-average/mean: 0.19ms
-standard dev: 0.04ms
-median:       0.19ms
-
-fail: 504/1000
-average/mean: 0.18ms
-standard dev: 0.05ms
-median:       0.17ms
-
 
 """
 
