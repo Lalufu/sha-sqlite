@@ -1,3 +1,4 @@
+DROP TABLE IF EXIST `sha`;
 CREATE TABLE `sha` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sha` varbinary(40) DEFAULT NULL,
