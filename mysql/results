@@ -7,7 +7,7 @@ VERSION="16.04.2 LTS (Xenial Xerus)"
 
 5.6.33-0ubuntu0.14.04.1
 
------ MyISAM ----
+----- MyISAM large ----
 Run with large key buffer:
 mysql> SET GLOBAL key_buffer_size = 16*1024*1024*1024;
 
@@ -43,16 +43,37 @@ average/mean: 0.18ms
 standard dev: 0.05ms
 median:       0.17ms
 
-
-
-
------ InnoDB ----
+----- InnoDB large ----
 Run with large innodb buffer pool:
+InnoDB: Sample run with
+innodb
+innodb_file_per_table = 1
+innodb_buffer_pool_size = 128m
+innodb_log_file_size = 512m
+
+
+---- InnoDB small -----
+Run with small innodb buffer pool:
 
 InnoDB: Sample run with
 innodb
 innodb_file_per_table = 1
-innodb_buffer_pool_size = 16384m
+innodb_buffer_pool_size = 128m
 innodb_log_file_size = 512m
 
 $ ./sha-create.py
+0...100000 [...]35900000...
+2043.43 seconds, 17617.43 inserts/s
+Created index in 186.98 seconds
+
+$ ./sha-find.py
+0...100...200...300...400...500...600...700...800...900...
+success: 485/1000
+average/mean: 0.23ms
+standard dev: 0.04ms
+median:       0.22ms
+
+fail: 515/1000
+average/mean: 0.22ms
+standard dev: 0.04ms
+median:       0.22ms
