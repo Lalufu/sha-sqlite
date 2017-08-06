@@ -63,6 +63,7 @@ def main():
 
         if i % 100000 == 0:
             print('%d...' % (i,), end='', flush=True)
+            conn.commit()
 
     conn.commit()
     end = time.time()
