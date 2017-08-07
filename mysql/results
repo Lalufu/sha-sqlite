@@ -43,6 +43,53 @@ average/mean: 0.18ms
 standard dev: 0.05ms
 median:       0.17ms
 
+----- MyISAM small -----
+Run with small key buffer:
+mysql> select @@key_buffer_size;
++-------------------+
+| @@key_buffer_size |
++-------------------+
+|           8388608 |
++-------------------+
+1 row in set (0.00 sec)
+
+$ ./sha-create.py
+0 rows, 0.00 seconds, 34936359093.01 inserts/s
+100000 rows, 6.06 seconds, 5937998.61 inserts/s
+200000 rows, 12.91 seconds, 2788858.57 inserts/s
+300000 rows, 19.21 seconds, 1874139.34 inserts/s
+400000 rows, 25.21 seconds, 1428268.06 inserts/s
+500000 rows, 31.28 seconds, 1150734.12 inserts/s
+600000 rows, 37.31 seconds, 965015.59 inserts/s
+700000 rows, 43.33 seconds, 830833.65 inserts/s
+800000 rows, 49.48 seconds, 727506.05 inserts/s
+900000 rows, 55.89 seconds, 644151.65 inserts/s
+...
+10000000 rows, 646.47 seconds, 55687.24 inserts/s
+...
+20000000 rows, 1286.99 seconds, 27972.14 inserts/s
+...
+30000000 rows, 1946.31 seconds, 18496.56 inserts/s
+...
+35600000 rows, 2310.23 seconds, 15582.89 inserts/s
+35700000 rows, 2317.03 seconds, 15537.13 inserts/s
+35800000 rows, 2323.29 seconds, 15495.25 inserts/s
+35900000 rows, 2329.60 seconds, 15453.27 inserts/s
+
+2335.75 seconds, 15412.62 inserts/s
+Created index in 109.85 seconds
+$ ./sha-find.py
+0...100...200...300...400...500...600...700...800...900...
+success: 490/1000
+average/mean: 0.18ms
+standard dev: 0.04ms
+median:       0.18ms
+
+fail: 510/1000
+average/mean: 0.17ms
+standard dev: 0.04ms
+median:       0.16ms
+
 ----- InnoDB large ----
 Run with large innodb buffer pool:
 InnoDB: Sample run with
