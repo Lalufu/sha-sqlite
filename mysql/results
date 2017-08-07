@@ -175,3 +175,27 @@ mysql> select table_name
 
 (index_mb only updated after ANALYZE TABLE because of
 https://dev.mysql.com/doc/refman/5.6/en/innodb-performance-optimizer-statistics.html)
+
+
+----- sqlite3 -----
+On the same hardware using sqlite3:
+
+$ ./sha-create.py
+10100000 rows, 60.62 seconds, 593828.37 inserts/s
+20500000 rows, 122.71 seconds, 293371.04 inserts/s
+30200000 rows, 181.26 seconds, 198613.58 inserts/s
+216.37 seconds, 166380.03 inserts/s
+Created index in 38.72 seconds
+
+kris@server:~/sha-mysql$ ./sha-find.py
+0...100...200...300...400...500...600...700...800...900...
+success: 469/1000
+average/mean: 0.03ms
+standard dev: 0.01ms
+median:       0.03ms
+
+fail: 531/1000
+average/mean: 0.03ms
+standard dev: 0.02ms
+median:       0.03ms
+
