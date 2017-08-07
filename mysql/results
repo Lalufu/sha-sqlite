@@ -124,9 +124,27 @@ innodb_buffer_pool_size = 128m
 innodb_log_file_size = 512m
 
 $ ./sha-create.py
-0...100000 [...]35900000...
-2043.43 seconds, 17617.43 inserts/s
-Created index in 186.98 seconds
+$ ./sha-create.py
+0 rows, 0.00 seconds, 34246982082.10 inserts/s
+100000 rows, 6.15 seconds, 5852259.07 inserts/s
+200000 rows, 11.78 seconds, 3055076.06 inserts/s
+300000 rows, 17.46 seconds, 2062206.93 inserts/s
+400000 rows, 23.04 seconds, 1562297.26 inserts/s
+500000 rows, 28.60 seconds, 1258523.78 inserts/s
+600000 rows, 34.12 seconds, 1055098.07 inserts/s
+700000 rows, 39.88 seconds, 902810.54 inserts/s
+...
+10000000 rows, 575.45 seconds, 62559.66 inserts/s
+...
+20000000 rows, 1153.76 seconds, 31202.29 inserts/s
+...
+30000000 rows, 1729.62 seconds, 20813.84 inserts/s
+...
+35800000 rows, 2060.23 seconds, 17473.77 inserts/s
+35900000 rows, 2065.80 seconds, 17426.65 inserts/s
+
+2071.56 seconds, 17378.21 inserts/s
+Created index in 154.07 seconds
 
 $ ./sha-find.py
 0...100...200...300...400...500...600...700...800...900...
@@ -139,3 +157,21 @@ fail: 515/1000
 average/mean: 0.22ms
 standard dev: 0.04ms
 median:       0.22ms
+
+mysql> select table_name
+              , engine
+              , row_format
+              , table_rows
+              , data_length/1024/1024 as data_mb
+              , index_length/1024/1024 as index_mb
+           from information_schema.tables
+          where table_name ='sha';
++------------+--------+------------+------------+---------------+---------------+
+| table_name | engine | row_format | table_rows | data_mb       | index_mb      |
++------------+--------+------------+------------+---------------+---------------+
+| sha        | InnoDB | Compact    |   35847605 | 2386.00000000 | 1793.00000000 |
++------------+--------+------------+------------+---------------+---------------+
+1 row in set (0.00 sec)
+
+(index_mb only updated after ANALYZE TABLE because of
+https://dev.mysql.com/doc/refman/5.6/en/innodb-performance-optimizer-statistics.html)
