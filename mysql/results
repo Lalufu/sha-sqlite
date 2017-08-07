@@ -199,3 +199,6 @@ average/mean: 0.03ms
 standard dev: 0.02ms
 median:       0.03ms
 
+File Size:
+-rw-r--r--  1 kris kris 3716717568 Aug  7 16:31 sha.sqlite
+-rw-r--r-- 1 kris kris 3.5G Aug  7 16:31 ./sha.sqlite
