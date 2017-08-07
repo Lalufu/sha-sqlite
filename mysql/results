@@ -48,9 +48,24 @@ Run with large innodb buffer pool:
 InnoDB: Sample run with
 innodb
 innodb_file_per_table = 1
-innodb_buffer_pool_size = 128m
+innodb_buffer_pool_size = 16384m
 innodb_log_file_size = 512m
 
+$ ./sha-create.py
+0...100000 [...]35900000...
+2104.89 seconds, 17102.99 inserts/s
+Created index in 176.68 seconds
+$ ./sha-find.py
+0...100...200...300...400...500...600...700...800...900...
+success: 502/1000
+average/mean: 0.17ms
+standard dev: 0.03ms
+median:       0.17ms
+
+fail: 498/1000
+average/mean: 0.17ms
+standard dev: 0.07ms
+median:       0.17ms
 
 ---- InnoDB small -----
 Run with small innodb buffer pool:
