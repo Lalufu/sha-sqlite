@@ -30,7 +30,9 @@ def main():
                  """, (hashlib.sha1(b'%d' % (i,)).hexdigest(),))
 
         if i % 100000 == 0:
-            print('%d...' % (i,), end='', flush=True)
+            now = time.time()
+            print('%d rows, %.2f seconds, %.2f inserts/s' % (i, now-start, COUNT / (now-start)), flush=True)
+            # conn.commit()
 
     conn.commit()
     end = time.time()
